@@ -7,13 +7,15 @@ class Edge;
 
 class Node
 {
-private:
-    std::string label;
-public:
-    std::vector<Edge*> edges;
+    private:
+        std::string const label;
+        
+    public:
+        std::vector<Edge*> edges;
 
-    Node(std::string label);
-    std::string Node::getLabel();
+        Node(std::string label);
 
-    friend std::ostream &operator<<(std::ostream &os, Node& node);
+        std::string Node::getLabel() const;
+
+        friend std::ostream &operator<<(std::ostream &os, Node& node);
 };

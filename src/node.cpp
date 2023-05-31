@@ -2,7 +2,7 @@
 
 Node::Node(std::string label):label(label){};
 
-Node::getLabel(){
+Node::getLabel() const{
     return this -> label;
 }
 

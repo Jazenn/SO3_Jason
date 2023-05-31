@@ -5,5 +5,8 @@
             "binaryPath": "d:\\Hogeschool Utrecht\\Jaar 1 - Blok 4\\AP\\Summatieve_Opdrachten\\SO3_Jason\\main",
             "binaryArgs": []
         }
-    ]
+    ],
+    "files.associations": {
+        "iosfwd": "cpp"
+    }
 }
