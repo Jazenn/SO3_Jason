@@ -11,5 +11,8 @@ class Edge{
 
         Edge(Node* from, Node* to, int cost);
 
+        Node* Edge::getNodeFrom() const;
+        Node* Edge::getNodeTo() const;
+
         friend std::ostream &operator<<(std::ostream& os, Edge& edge);
 };
