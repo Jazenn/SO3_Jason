@@ -1,8 +1,11 @@
+#include <iostream>
+#include <string>
+
 #include "include/node.hpp"
 
 Node::Node(std::string label):label(label){};
 
-Node::getLabel() const{
+std::string Node::getLabel() const{
     return this -> label;
 }
 

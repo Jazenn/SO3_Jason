@@ -1,1 +1,1 @@
-obj/Autorit.o: src/Autorit.cpp
+obj/autorit.o: src/autorit.cpp

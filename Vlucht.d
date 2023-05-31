@@ -1,1 +1,1 @@
-obj/Vlucht.o: src/Vlucht.cpp
+obj/vlucht.o: src/vlucht.cpp

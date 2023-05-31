@@ -1,1 +1,1 @@
-obj/Stap.o: src/Stap.cpp
+obj/stap.o: src/stap.cpp

@@ -5,7 +5,7 @@
 # Compiler settings - Can be customized.
 CC = g++
 CXXFLAGS = -std=c++17 -Wall
-LDFLAGS = 
+LDFLAGS =
 
 # Makefile settings - Can be customized.
 APPNAME = main

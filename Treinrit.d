@@ -1,1 +1,1 @@
-obj/Treinrit.o: src/Treinrit.cpp
+obj/treinrit.o: src/treinrit.cpp

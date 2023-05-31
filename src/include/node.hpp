@@ -15,7 +15,7 @@ class Node
 
         Node(std::string label);
 
-        std::string Node::getLabel() const;
+        std::string getLabel() const;
 
         friend std::ostream &operator<<(std::ostream &os, Node& node);
 };

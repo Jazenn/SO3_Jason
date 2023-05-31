@@ -1,1 +1,1 @@
-obj/Station.o: src/Station.cpp
+obj/station.o: src/station.cpp
