@@ -1,12 +1,10 @@
-#pragma once
-
 #include <iostream>
 #include <string>
 #include <vector>
 
-#include "src\include\graph.hpp"
-#include "src\include\node.hpp"
-#include "src\include\edge.hpp"
+#include "include\graph.hpp"
+#include "include\node.hpp"
+#include "include\edge.hpp"
 
 int main(){
     Node nodeA = Node("A");
