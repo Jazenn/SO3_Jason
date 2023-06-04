@@ -1,4 +1,6 @@
 #include "include/graph.hpp"
+#include <queue>
+#include <map>
 
 Graph::Graph(std::vector<Node*> nodes, std::vector<Edge*> edges) : nodes(nodes),edges(edges){};
 
@@ -20,3 +22,17 @@ int Graph::getCostOfPath(std::vector<Node*> nodesToVisit) const{
     //Calculate total costs 
     return totalCosts;
 }
+
+std::vector<Node*> Graph::findShortestPathWithDijkstra(Node *start, Node *end) {
+    std::map<std::string, int> dist = {{start->getLabel(), 0}};
+    std::map<std::string, std::string> prev;
+    std::priority_queue<Node*, std::vector<Node*>, Node::NodeComparator> pq_nodes;
+
+    for(Node* node : Graph::nodes){
+        dist[node->getLabel()] = INT_MAX;
+        prev[node->getLabel()] = "None";
+    }
+
+    
+}
+
