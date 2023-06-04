@@ -16,7 +16,7 @@ int Graph::getCostOfPath(std::vector<Node*> nodesToVisit) const{
     for(int i = 0; i < nodesToVisit.size() -1; i++){
         totalCosts  += getEdgeBetweenNodes(nodesToVisit[i], nodesToVisit[i+1])->cost ;
     }
-    
+
     //Calculate total costs 
     return totalCosts;
 }

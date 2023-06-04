@@ -12,6 +12,6 @@ Node* Edge::getNodeTo() const{
 
 std::ostream &operator<<(std::ostream &os, Edge& edge) {
 
-    os <<  "( " << edge.from->getLabel() << "->" << edge.to->getLabel() << ")" << "\n";
+    os <<  "(" << edge.from->getLabel() << "->" << edge.to->getLabel() << ")" << ", cost: " << edge.cost << "\n";
     return os;
 }
