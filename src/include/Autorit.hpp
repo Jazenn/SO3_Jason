@@ -8,4 +8,5 @@ class Autorit : public Edge{
 
     public:
         Autorit(Node* from, Node* to, int cost);
+        std::string getType() override;
 };

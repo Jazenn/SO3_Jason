@@ -1,6 +1,7 @@
 #pragma once
 #include "node.hpp"
 #include "edge.hpp"
+#include <vector>
 
 class Graph{
         private:
@@ -12,8 +13,6 @@ class Graph{
             Graph(std::vector<Node*> nodes, std::vector<Edge*> edges);
 
             Edge* getEdgeBetweenNodes(Node* from, Node* to) const;
-
             int getCostOfPath(std::vector<Node*> nodesToVisit) const;
-
             std::vector<Node*> Graph::findShortestPathWithDijkstra(Node* start, Node* end);
 };
