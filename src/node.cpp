@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
 
-#include "include/node.hpp"
+#include "include/edge.hpp"
+
 
 Node::Node(std::string label):label(label){};
 
@@ -12,7 +13,7 @@ std::string Node::getLabel() const{
 std::vector<Node*> Node::findNeighboursOfNode() const{
     std::vector<Node*> neighbouringNodes;
     for(auto edge : Node::edges){
-        neighbouringNodes.push_back(edge->to);
+        neighbouringNodes.push_back(edge->getNodeTo());
     }
 }
 

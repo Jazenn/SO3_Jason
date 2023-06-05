@@ -14,5 +14,5 @@ class Graph{
 
             Edge* getEdgeBetweenNodes(Node* from, Node* to) const;
             int getCostOfPath(std::vector<Node*> nodesToVisit) const;
-            std::vector<Node*> Graph::findShortestPathWithDijkstra(Node* start, Node* end);
+            std::vector<Node*> findShortestPathWithDijkstra(Node* start, Node* end);
 };

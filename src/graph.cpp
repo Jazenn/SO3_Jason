@@ -25,6 +25,9 @@ int Graph::getCostOfPath(std::vector<Node*> nodesToVisit) const{
 
 std::vector<Node*> Graph::findShortestPathWithDijkstra(Node* start, Node* end) {
     std::priority_queue<Node*, std::vector<Node*>, Node::NodeComparator> pq_nodes;
+    std::vector<int> distances;
+    std::vector<Node*> previous_nodes;
+
     pq_nodes.push(start);
 
     for(Node* node : Graph::nodes){
@@ -39,8 +42,14 @@ std::vector<Node*> Graph::findShortestPathWithDijkstra(Node* start, Node* end) {
         pq_nodes.pop();
 
         for(Node* neighbour : n->findNeighboursOfNode()){
-            int alt = n->minimalDistance + Graph::getCostOfPath(n, neighbour);
+            int alt = n->minimalDistance + Graph::getCostOfPath({n, neighbour});
+            if(alt < neighbour->minimalDistance){
+                neighbour->minimalDistance = alt;
+                neighbour->previousNode = n;
+                pq_nodes.push(neighbour);
+            }
         }
     }
+    return Graph::nodes;
 }
 
