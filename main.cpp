@@ -52,6 +52,7 @@ int main(){
     Graph graph1 = Graph(nodes, edges);
 
     std::cout << "test" << '\n';
+    std::cout << size(nodeA.edges) << '\n';
     
     for(Edge* edge : nodeA.edges){
         std::cout << *edge << '\n';

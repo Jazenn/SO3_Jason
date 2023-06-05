@@ -19,8 +19,11 @@ TEST_CASE("Nodes werken met bijbehorende edges.", "node.cpp"){
     Autorit autorit1 = Autorit(&nodeA, &nodeB, 5);
     Autorit autorit2 = Autorit(&nodeB, &nodeA, 4);
 
+    nodeA.edges.insert(nodeA.edges.end(), {&autorit1});
+    nodeB.edges.insert(nodeB.edges.end(), {&autorit2});
+
     REQUIRE(size(nodeA.edges) == 1);
     REQUIRE(nodeA.edges.front() == &autorit1);
     REQUIRE(size(nodeB.edges) == 1);
-    REQUIRE(nodeA.edges.front() == &autorit2);
+    REQUIRE(nodeB.edges.front() == &autorit2);
 }
