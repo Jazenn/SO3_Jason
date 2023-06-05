@@ -2,12 +2,12 @@
 #include <string>
 #include <vector>
 
-#include "include\graph.hpp"
-#include "include\node.hpp"
-#include "include\edge.hpp"
-#include "include\autorit.hpp"
-#include "include\treinrit.hpp"
-#include "include\vlucht.hpp"
+#include "src\include\graph.hpp"
+#include "src\include\node.hpp"
+#include "src\include\edge.hpp"
+#include "src\include\autorit.hpp"
+#include "src\include\treinrit.hpp"
+#include "src\include\vlucht.hpp"
 
 int main(){
     Node nodeA = Node("A");

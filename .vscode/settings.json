@@ -4,6 +4,11 @@
             "cwd": "d:\\Hogeschool Utrecht\\Jaar 1 - Blok 4\\AP\\Summatieve_Opdrachten\\SO3_Jason",
             "binaryPath": "d:\\Hogeschool Utrecht\\Jaar 1 - Blok 4\\AP\\Summatieve_Opdrachten\\SO3_Jason\\main",
             "binaryArgs": []
+        },
+        {
+            "cwd": "d:\\Hogeschool Utrecht\\Jaar 1 - Blok 4\\AP\\Summatieve_Opdrachten\\SO3_Jason",
+            "binaryPath": "d:\\Hogeschool Utrecht\\Jaar 1 - Blok 4\\AP\\Summatieve_Opdrachten\\SO3_Jason\\testDijkstra",
+            "binaryArgs": []
         }
     ],
     "files.associations": {
@@ -50,6 +55,13 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "typeinfo": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "cstdarg": "cpp",
+        "cstring": "cpp",
+        "ctime": "cpp",
+        "set": "cpp",
+        "fstream": "cpp",
+        "iomanip": "cpp",
+        "sstream": "cpp"
     }
 }

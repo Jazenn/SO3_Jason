@@ -7,6 +7,6 @@ int Autorit::multiplyCost(int* cost){
     return *cost * 1.5;
 }
 
-std::string getType(){
+std::string Autorit::getType(){
     return "Autorit";
 }
