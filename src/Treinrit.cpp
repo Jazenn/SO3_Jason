@@ -6,3 +6,7 @@ Treinrit::Treinrit(Node* from, Node* to, int cost): Edge(from, to, multiplyCost(
 int Treinrit::multiplyCost(int* cost){
     return *cost * 2;
 }
+
+std::string Treinrit::getType(){
+    return "Treinrit";
+}

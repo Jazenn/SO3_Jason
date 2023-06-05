@@ -6,3 +6,7 @@ Autorit::Autorit(Node* from, Node* to, int cost): Edge(from, to, multiplyCost(&c
 int Autorit::multiplyCost(int* cost){
     return *cost * 1.5;
 }
+
+std::string getType(){
+    return "Autorit";
+}

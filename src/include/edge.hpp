@@ -8,12 +8,11 @@ class Edge{
 
     public:
         int cost;
-
+        
         Edge(Node* from, Node* to, int cost);
 
         Node* getNodeFrom() const;
-        
         Node* getNodeTo() const;
-
+        virtual std::string getType() = 0;
         friend std::ostream &operator<<(std::ostream& os, Edge& edge);
 };

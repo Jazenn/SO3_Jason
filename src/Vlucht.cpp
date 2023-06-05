@@ -6,3 +6,7 @@ Vlucht::Vlucht(Node* from, Node* to, int cost): Edge(from, to, multiplyCost(&cos
 int Vlucht::multiplyCost(int* cost){
     return *cost * 0.75;
 }
+
+std::string Vlucht::getType(){
+    return "Vlucht";
+}
