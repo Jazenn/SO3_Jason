@@ -67,6 +67,5 @@ int main(){
         std::cout << node->minimalDistance << node->previousNode << '\n';
     }
 
-
     return 0;
 }
