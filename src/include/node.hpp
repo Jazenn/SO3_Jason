@@ -19,7 +19,10 @@ class Node
 
         std::string getLabel() const;
         std::vector<Node*> findNeighboursOfNode() const;
+        
         friend std::ostream &operator<<(std::ostream &os, Node& node);
+        bool operator==(Node* rhs) const;
+
         struct NodeComparator {
             bool operator()(Node* lhs, Node* rhs) {
                 return lhs->minimalDistance > rhs->minimalDistance;

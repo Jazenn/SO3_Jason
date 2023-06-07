@@ -9,4 +9,5 @@ class Vlucht : public Edge{
     public:
         Vlucht(Node* from, Node* to, int cost);
         std::string getType() override;
+        bool operator==(Edge* rhs) const override;
 };

@@ -4,6 +4,14 @@
 
 Graph::Graph(std::vector<Node*> nodes, std::vector<Edge*> edges) : nodes(nodes),edges(edges){};
 
+std::vector<Node*> Graph::getNodes() const{
+    return this->nodes;
+}
+
+std::vector<Edge*> Graph::getEdges() const{
+    return this->edges;
+}
+
 Edge* Graph::getEdgeBetweenNodes(Node* from, Node* to) const{
     for(Edge* edge : from->edges){
         if(edge->getNodeTo() == to){
@@ -51,5 +59,12 @@ std::vector<Node*> Graph::findShortestPathWithDijkstra(Node* start, Node* end) {
         }
     }
     return Graph::nodes;
+}
+
+bool operator==(std::vector<Node*> lhs, std::vector<Node*>rhs){
+    if(lhs.size() != rhs.size()){
+        return false;
+    }
+    return std::equal(lhs.begin(), lhs.end(), rhs.begin());
 }
 

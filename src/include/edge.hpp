@@ -14,5 +14,7 @@ class Edge{
         Node* getNodeFrom() const;
         Node* getNodeTo() const;
         virtual std::string getType() = 0;
+        virtual bool operator==(Edge* rhs) const = 0;
+
         friend std::ostream &operator<<(std::ostream& os, Edge& edge);
 };

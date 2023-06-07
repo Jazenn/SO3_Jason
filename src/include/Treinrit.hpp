@@ -9,4 +9,5 @@ class Treinrit : public Edge{
     public:
         Treinrit(Node* from, Node* to, int cost);
         std::string getType() override;
+        bool operator==(Edge* rhs) const override;
 };

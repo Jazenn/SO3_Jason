@@ -10,3 +10,7 @@ int Treinrit::multiplyCost(int* cost){
 std::string Treinrit::getType(){
     return "Treinrit";
 }
+
+bool Treinrit::operator==(Edge* rhs) const{
+    return(getNodeFrom() == rhs->getNodeFrom() && this->getNodeTo() == rhs->getNodeTo());
+}

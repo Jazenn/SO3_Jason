@@ -10,3 +10,7 @@ int Autorit::multiplyCost(int* cost){
 std::string Autorit::getType(){
     return "Autorit";
 }
+
+bool Autorit::operator==(Edge* rhs) const{
+    return(this->getNodeFrom() == rhs->getNodeFrom() && this->getNodeTo() == rhs->getNodeTo());
+}

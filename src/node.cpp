@@ -21,3 +21,7 @@ std::ostream &operator<<(std::ostream& os, Node& node) {
     os << "Node " << node.label << "\n";
     return os;
 }
+
+bool Node::operator==(Node* rhs) const{
+    return this->getLabel() == rhs->getLabel();
+}

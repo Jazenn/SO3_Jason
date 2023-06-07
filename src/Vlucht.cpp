@@ -10,3 +10,7 @@ int Vlucht::multiplyCost(int* cost){
 std::string Vlucht::getType(){
     return "Vlucht";
 }
+
+bool Vlucht::operator==(Edge* rhs) const{
+    return(this->getNodeFrom() == rhs->getNodeFrom() && this->getNodeTo() == rhs->getNodeTo());
+}

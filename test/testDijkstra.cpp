@@ -6,6 +6,28 @@
 #include "..\src\include\autorit.hpp"
 #include "..\src\include\treinrit.hpp"
 #include "..\src\include\vlucht.hpp"
+Graph createMockGraph(){
+    Node nodeA = Node("A");
+    Node nodeB = Node("B");
+    Node nodeC = Node("C");
+    Node nodeD = Node("D");
+
+    Autorit autorit1 = Autorit(&nodeA, &nodeB, 5);
+    Autorit autorit2 = Autorit(&nodeA, &nodeC, 4);
+    Treinrit treinrit1 = Treinrit(&nodeB, &nodeD, 2);
+    Vlucht vlucht1 = Vlucht(&nodeC, &nodeD, 1);\
+
+    nodeA.edges.insert(nodeA.edges.end(), {&autorit1, &autorit2});
+    nodeB.edges.insert(nodeB.edges.end(), {&treinrit1});
+    nodeC.edges.insert(nodeC.edges.end(), {&vlucht1});
+
+    std::vector<Node*> nodes = {&nodeA, &nodeB, &nodeC, &nodeD};
+    std::vector<Edge*> edges = {&autorit1, &autorit2, &treinrit1, &vlucht1};
+
+    Graph graph = Graph(nodes, edges);
+
+    return graph;
+}
 
 TEST_CASE("Een node wordt correct aangemaakt", "node.cpp"){
     Node node1 = Node("A");
@@ -64,4 +86,53 @@ TEST_CASE("Nodes werken met verschillende subclasses van Edge", "Node.cpp + Edge
     REQUIRE(nodeB.edges.front() == &treinrit1);
     REQUIRE(size(nodeC.edges) == 1);
     REQUIRE(nodeC.edges.front() == &vlucht1);
+}
+
+TEST_CASE("A graph is generated correctly", "graph.cpp, node.cpp, edge.cpp"){
+    Node nodeA = Node("A");
+    Node nodeB = Node("B");
+    Node nodeC = Node("C");
+    Node nodeD = Node("D");
+
+    Autorit autorit1 = Autorit(&nodeA, &nodeB, 5);
+    Autorit autorit2 = Autorit(&nodeA, &nodeC, 4);
+    Treinrit treinrit1 = Treinrit(&nodeB, &nodeD, 2);
+    Vlucht vlucht1 = Vlucht(&nodeC, &nodeD, 1);\
+
+    nodeA.edges.insert(nodeA.edges.end(), {&autorit1, &autorit2});
+    nodeB.edges.insert(nodeB.edges.end(), {&treinrit1});
+    nodeC.edges.insert(nodeC.edges.end(), {&vlucht1});
+
+    std::vector<Node*> nodes = {&nodeA, &nodeB, &nodeC, &nodeD};
+    std::vector<Edge*> edges = {&autorit1, &autorit2, &treinrit1, &vlucht1};
+    Graph graph1 = Graph(nodes, edges);
+
+    std::vector<Node*> testNodes = {&nodeA, &nodeB, &nodeC, &nodeD};
+    std::vector<Edge*> testEdges = {&autorit1, &autorit2, &treinrit1, &vlucht1};
+
+    REQUIRE(graph1.getNodes() == testNodes);
+    REQUIRE(graph1.getEdges() == testEdges);
+}
+
+TEST_CASE("Test whether 2 identical nodes are equal", "node.cpp"){
+    Node node1 = Node("A");
+
+    REQUIRE(&node1 == &node1);
+}
+
+TEST_CASE("Test whether 2 identical edges are equal", "edge.cpp"){
+    Node nodeA = Node("A");
+    Node nodeB = Node("B");
+
+    Autorit autorit1 = Autorit(&nodeA, &nodeB, 5);
+
+    REQUIRE(&autorit1 == &autorit1);
+}
+
+TEST_CASE("The function getEdgeBetweenNodes works correctly", "graph.cpp, node.cpp, edge.cpp"){
+    Graph graph1 = createMockGraph();
+
+    std::cout << graph1.getEdgeBetweenNodes(graph1.getNodes()[0], graph1.getNodes()[1]) << '\n';
+    
+    REQUIRE(graph1.getEdgeBetweenNodes(graph1.getNodes()[0], graph1.getNodes()[1]) == graph1.getEdges()[0]);
 }
