@@ -12,7 +12,7 @@ class Node
         
     public:
         std::vector<Edge*> edges;
-        int minimalDistance;
+        float minimalDistance;
         Node* previousNode;
         
         Node(std::string label);
@@ -24,7 +24,7 @@ class Node
         bool operator==(Node* rhs) const;
 
         struct NodeComparator {
-            bool operator()(Node* lhs, Node* rhs) {
+            bool operator()(const Node* lhs, const Node* rhs) const{
                 return lhs->minimalDistance > rhs->minimalDistance;
         }
     };

@@ -74,5 +74,12 @@ int main(){
     std::cout << graph1.getEdgeBetweenNodes(graph1.getNodes()[0], graph1.getNodes()[1]);
     std::cout << *graph1.getEdgeBetweenNodes(graph1.getNodes()[0], graph1.getNodes()[1]);
 
+    std::cout << "-------------------------------------" << "\n";
+    std::vector<Node*> neighbouringNodes = nodeA.findNeighboursOfNode();
+
+    for(Node* node : neighbouringNodes){
+        std::cout << *node << "\n";
+    }
+    
     return 0;
 }

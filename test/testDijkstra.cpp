@@ -137,6 +137,12 @@ TEST_CASE("The function getEdgeBetweenNodes works correctly", "graph.cpp, node.c
     REQUIRE(graph1.getEdgeBetweenNodes(graph1.getNodes()[0], graph1.getNodes()[1]) == graph1.getEdges()[0]);
 }
 
+TEST_CASE("The function getEdgeBetweenNodes returns a nullptr when there is no edge between the given nodes", "graph.cpp, node.cpp, edge.cpp"){
+    Graph graph1 = createMockGraph();
+
+    REQUIRE(graph1.getEdgeBetweenNodes(graph1.getNodes()[0], graph1.getNodes()[3]) == nullptr);
+}
+
 TEST_CASE("The function getCostOfPath works correctly", "graph.cpp, node.cpp, edge.cpp"){
     Graph graph1 = createMockGraph();
 
@@ -146,5 +152,29 @@ TEST_CASE("The function getCostOfPath works correctly", "graph.cpp, node.cpp, ed
 TEST_CASE("The function getCostOfPath returns -1 if path between nodes does not exist.", "graph.cpp, node.cpp, edge.cpp"){
     Graph graph1 = createMockGraph();
 
-    REQUIRE(graph1.getCostOfPath({graph1.getNodes()[0], graph1.getNodes()[1], graph1.getNodes()[3]}) == 11.5);
+    REQUIRE(graph1.getCostOfPath({graph1.getNodes()[0], graph1.getNodes()[4]}) == -1);
+}
+
+TEST_CASE("The function findNeighboursOfNode works correctly","node.cpp"){
+    Graph graph1 = createMockGraph();
+    std::vector<Node*> testingNodes = {graph1.getNodes()[1], graph1.getNodes()[2]};
+
+    REQUIRE(graph1.getNodes()[0]->findNeighboursOfNode() == testingNodes);
+}
+
+TEST_CASE("The function findNeighboursOfNode returns an empty vector is node has no neighbours","node.cpp"){
+    Graph graph1 = createMockGraph();
+    std::vector<Node*> testingNodes = {};
+
+    REQUIRE(graph1.getNodes()[3]->findNeighboursOfNode() == testingNodes);
+    REQUIRE(graph1.getNodes()[4]->findNeighboursOfNode() == testingNodes);
+}
+
+TEST_CASE("Function findShortestPathWithDijkstra works correctly", "graph.cpp, node.cpp, edge.cpp"){
+    Graph graph1 = createMockGraph();
+    std::vector<Node*> resultingNodes = graph1.findShortestPathWithDijkstra(graph1.getNodes()[0], graph1.getNodes()[3]);
+    
+    REQUIRE(resultingNodes[3]->minimalDistance == 6.75);
+    REQUIRE(resultingNodes[3]->previousNode == graph1.getNodes()[2]);
+    REQUIRE(resultingNodes[2]->previousNode == graph1.getNodes()[0]);
 }

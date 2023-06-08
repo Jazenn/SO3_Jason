@@ -1,6 +1,6 @@
 #include "include/graph.hpp"
 #include <queue>
-#include <map>
+#include <limits>
 
 Graph::Graph(std::vector<Node*> nodes, std::vector<Edge*> edges) : nodes(nodes),edges(edges){};
 
@@ -37,7 +37,7 @@ float Graph::getCostOfPath(std::vector<Node*> nodesToVisit) const{
 
 std::vector<Node*> Graph::findShortestPathWithDijkstra(Node* start, Node* end) {
     std::priority_queue<Node*, std::vector<Node*>, Node::NodeComparator> pq_nodes;
-    std::vector<int> distances;
+    std::vector<float> distances;
     std::vector<Node*> previous_nodes;
 
     pq_nodes.push(start);
@@ -46,15 +46,18 @@ std::vector<Node*> Graph::findShortestPathWithDijkstra(Node* start, Node* end) {
         if(node->getLabel() == start->getLabel()){
             node->minimalDistance = 0;
         }
-        node->minimalDistance = INT_MAX;
+        else{
+            node->minimalDistance = std::numeric_limits<float>::max();
+        }
+        node->previousNode = nullptr;
     }
 
-    while(size(pq_nodes) != 0){
+    while(!pq_nodes.empty()){
         Node* n = pq_nodes.top();
         pq_nodes.pop();
 
         for(Node* neighbour : n->findNeighboursOfNode()){
-            int alt = n->minimalDistance + Graph::getCostOfPath({n, neighbour});
+            float alt = n->minimalDistance + getCostOfPath({n, neighbour});
             if(alt < neighbour->minimalDistance){
                 neighbour->minimalDistance = alt;
                 neighbour->previousNode = n;
@@ -62,7 +65,7 @@ std::vector<Node*> Graph::findShortestPathWithDijkstra(Node* start, Node* end) {
             }
         }
     }
-    return Graph::nodes;
+    return nodes;
 }
 
 bool operator==(std::vector<Node*> lhs, std::vector<Node*>rhs){
