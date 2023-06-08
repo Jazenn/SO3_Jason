@@ -80,6 +80,21 @@ int main(){
     for(Node* node : neighbouringNodes){
         std::cout << *node << "\n";
     }
-    
+
+    std::cout << "-------------------------------------" << "\n";
+    std::cout << "DIJKSTRA'S ALGORITHM TESTING" << "\n";
+
+    graph1.findShortestPathWithDijkstra(graph1.getNodes()[0], graph1.getNodes()[3]);
+
+    for (Node* node : nodes) {
+    std::cout << "Minimal distance to " << node->getLabel() << ": " << node->minimalDistance << "\n";
+    if (node->previousNode) {
+        std::cout << "Previous node: " << node->previousNode->getLabel() << "\n";
+    } else {
+        std::cout << "Previous node: None\n";
+    }
+    std::cout << "\n";
+}
+
     return 0;
 }

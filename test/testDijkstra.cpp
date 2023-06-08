@@ -172,9 +172,9 @@ TEST_CASE("The function findNeighboursOfNode returns an empty vector is node has
 
 TEST_CASE("Function findShortestPathWithDijkstra works correctly", "graph.cpp, node.cpp, edge.cpp"){
     Graph graph1 = createMockGraph();
-    std::vector<Node*> resultingNodes = graph1.findShortestPathWithDijkstra(graph1.getNodes()[0], graph1.getNodes()[3]);
+    graph1.findShortestPathWithDijkstra(graph1.getNodes()[0], graph1.getNodes()[3]);
     
-    REQUIRE(resultingNodes[3]->minimalDistance == 6.75);
-    REQUIRE(resultingNodes[3]->previousNode == graph1.getNodes()[2]);
-    REQUIRE(resultingNodes[2]->previousNode == graph1.getNodes()[0]);
+    REQUIRE(graph1.getNodes()[3]->minimalDistance == 6.75);
+    REQUIRE(graph1.getNodes()[3]->previousNode == graph1.getNodes()[2]);
+    REQUIRE(graph1.getNodes()[2]->previousNode == graph1.getNodes()[0]);
 }
