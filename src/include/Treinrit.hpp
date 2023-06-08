@@ -4,10 +4,10 @@
 
 class Treinrit : public Edge{  
     private:
-        static int multiplyCost(int* cost);
+        static float multiplyCost(float* cost);
 
     public:
-        Treinrit(Node* from, Node* to, int cost);
+        Treinrit(Node* from, Node* to, float cost);
         std::string getType() override;
         bool operator==(Edge* rhs) const override;
 };

@@ -1,9 +1,9 @@
 #pragma once
 #include "include\autorit.hpp"
 
-Autorit::Autorit(Node* from, Node* to, int cost): Edge(from, to, multiplyCost(&cost)){};
+Autorit::Autorit(Node* from, Node* to, float cost): Edge(from, to, multiplyCost(&cost)){};
 
-int Autorit::multiplyCost(int* cost){
+float Autorit::multiplyCost(float* cost){
     return *cost * 1.5;
 }
 

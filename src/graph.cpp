@@ -21,10 +21,14 @@ Edge* Graph::getEdgeBetweenNodes(Node* from, Node* to) const{
     return nullptr;
 }
 
-int Graph::getCostOfPath(std::vector<Node*> nodesToVisit) const{
-    int totalCosts = 0;
+float Graph::getCostOfPath(std::vector<Node*> nodesToVisit) const{
+    float totalCosts = 0;
     for(int i = 0; i < nodesToVisit.size() -1; i++){
-        totalCosts  += getEdgeBetweenNodes(nodesToVisit[i], nodesToVisit[i+1])->cost ;
+        Edge* edgeBetweenNodes = getEdgeBetweenNodes(nodesToVisit[i], nodesToVisit[i+1]);
+        if(edgeBetweenNodes == nullptr){
+            return -1;
+        }
+        totalCosts += edgeBetweenNodes->cost ;
     }
 
     //Calculate total costs 

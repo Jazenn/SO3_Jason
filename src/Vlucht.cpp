@@ -1,9 +1,9 @@
 #pragma once
 #include "include\vlucht.hpp"
 
-Vlucht::Vlucht(Node* from, Node* to, int cost): Edge(from, to, multiplyCost(&cost)){};
+Vlucht::Vlucht(Node* from, Node* to, float cost): Edge(from, to, multiplyCost(&cost)){};
 
-int Vlucht::multiplyCost(int* cost){
+float Vlucht::multiplyCost(float* cost){
     return *cost * 0.75;
 }
 

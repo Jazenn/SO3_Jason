@@ -1,9 +1,9 @@
 #pragma once
 #include "include\treinrit.hpp"
 
-Treinrit::Treinrit(Node* from, Node* to, int cost): Edge(from, to, multiplyCost(&cost)){};
+Treinrit::Treinrit(Node* from, Node* to, float cost): Edge(from, to, multiplyCost(&cost)){};
 
-int Treinrit::multiplyCost(int* cost){
+float Treinrit::multiplyCost(float* cost){
     return *cost * 2;
 }
 
