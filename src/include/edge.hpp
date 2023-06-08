@@ -7,9 +7,9 @@ class Edge{
         Node* const to;
 
     public:
-        int cost;
+        float cost;
         
-        Edge(Node* from, Node* to, int cost);
+        Edge(Node* from, Node* to, float cost);
 
         Node* getNodeFrom() const;
         Node* getNodeTo() const;

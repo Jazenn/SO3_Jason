@@ -1,6 +1,6 @@
 #include "include/edge.hpp"
 
-Edge::Edge(Node* from, Node* to, int cost): from(from), to(to), cost(cost){};
+Edge::Edge(Node* from, Node* to, float cost): from(from), to(to), cost(cost){};
 
 Node* Edge::getNodeFrom() const{
     return this -> from;
