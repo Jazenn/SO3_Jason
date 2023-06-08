@@ -63,9 +63,16 @@ int main(){
     std::vector<Node*> nodesVisiting = {&nodeA, &nodeC, &nodeF};
     std::cout << graph1.getCostOfPath(nodesVisiting) << '\n';
 
-    for(Node* node : graph1.findShortestPathWithDijkstra(&nodeA, &nodeF)){
-        std::cout << node->minimalDistance << node->previousNode << '\n';
-    }
+    // for(Node* node : graph1.findShortestPathWithDijkstra(&nodeA, &nodeF)){
+    //     std::cout << node->minimalDistance << node->previousNode << '\n';
+    // }
+
+    std::cout << "-------------------------------------" << "\n";
+    std::cout << autorit1 << "\n";
+    std::cout << graph1.getEdgeBetweenNodes(&nodeA, &nodeB) << "\n";
+    std::cout << *graph1.getEdgeBetweenNodes(&nodeA, &nodeB) << "\n";
+    std::cout << graph1.getEdgeBetweenNodes(graph1.getNodes()[0], graph1.getNodes()[1]);
+    std::cout << *graph1.getEdgeBetweenNodes(graph1.getNodes()[0], graph1.getNodes()[1]);
 
     return 0;
 }
