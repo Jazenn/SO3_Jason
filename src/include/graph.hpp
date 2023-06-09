@@ -2,6 +2,7 @@
 #include "node.hpp"
 #include "edge.hpp"
 #include <vector>
+#include <tuple>
 
 class Graph{
         private:
@@ -16,7 +17,8 @@ class Graph{
             std::vector<Edge*> getEdges() const;
             Edge* getEdgeBetweenNodes(Node* from, Node* to) const;
             float getCostOfPath(std::vector<Node*> nodesToVisit) const;
-            std::vector<Node*> findShortestPathWithDijkstra(Node* start, Node* end);
+            void findShortestPathWithDijkstra(Node* start, Node* end);
+            std::tuple<int, std::vector<Node*>> getResultsOfDijkstra(Node* start, Node* end);
 
             friend bool operator==(std::vector<Node*> lhs, std::vector<Node*>rhs);
 };

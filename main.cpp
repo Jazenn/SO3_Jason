@@ -95,6 +95,8 @@ int main(){
     }
     std::cout << "\n";
 }
-
+    std::cout << "Welkom bij deze demo van het Dijkstra algoritme!" << "\n";
+    std::cout << "Dit is een voorbeeld graaf die we hebben aangemaakt:" << "\n";
+    
     return 0;
 }

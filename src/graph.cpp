@@ -1,6 +1,7 @@
 #include "include/graph.hpp"
 #include <queue>
 #include <limits>
+#include <tuple>
 
 Graph::Graph(std::vector<Node*> nodes, std::vector<Edge*> edges) : nodes(nodes),edges(edges){};
 
@@ -35,7 +36,7 @@ float Graph::getCostOfPath(std::vector<Node*> nodesToVisit) const{
     return totalCosts;
 }
 
-std::vector<Node*> Graph::findShortestPathWithDijkstra(Node* start, Node* end) {
+void Graph::findShortestPathWithDijkstra(Node* start, Node* end) {
     std::priority_queue<Node*, std::vector<Node*>, Node::NodeComparator> pq_nodes;
     std::vector<float> distances;
     std::vector<Node*> previous_nodes;
@@ -65,8 +66,19 @@ std::vector<Node*> Graph::findShortestPathWithDijkstra(Node* start, Node* end) {
             }
         }
     }
-    return nodes;
 }
+
+    std::tuple<int, std::vector<Node*>> getResultsOfDijkstra(Node* start, Node* end){
+        std::vector<Node*> dijkstrasPath;
+        float totalCost;
+        Node* currentNode = end;
+        while(currentNode != start){
+            totalCost += currentNode->minimalDistance;
+            dijkstrasPath.push_back(currentNode);
+            currentNode = currentNode->previousNode;
+        }
+        return std::make_tuple(totalCost, dijkstrasPath);
+    }
 
 bool operator==(std::vector<Node*> lhs, std::vector<Node*>rhs){
     if(lhs.size() != rhs.size()){
