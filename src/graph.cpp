@@ -2,6 +2,8 @@
 #include <queue>
 #include <limits>
 #include <tuple>
+#include <iostream>
+#include <ostream>
 
 Graph::Graph(std::vector<Node*> nodes, std::vector<Edge*> edges) : nodes(nodes),edges(edges){};
 
@@ -68,22 +70,35 @@ void Graph::findShortestPathWithDijkstra(Node* start, Node* end) {
     }
 }
 
-    std::tuple<int, std::vector<Node*>> getResultsOfDijkstra(Node* start, Node* end){
-        std::vector<Node*> dijkstrasPath;
-        float totalCost;
-        Node* currentNode = end;
-        while(currentNode != start){
-            totalCost += currentNode->minimalDistance;
-            dijkstrasPath.push_back(currentNode);
-            currentNode = currentNode->previousNode;
-        }
-        return std::make_tuple(totalCost, dijkstrasPath);
+std::tuple<float, std::vector<Node*>> Graph::getResultsOfDijkstra(Node* start, Node* end){
+    std::vector<Node*> dijkstrasPath;
+    float totalCost;
+    Node* currentNode = end;
+    while(currentNode != start){
+        totalCost += currentNode->minimalDistance;
+        dijkstrasPath.push_back(currentNode);
+        currentNode = currentNode->previousNode;
     }
+    dijkstrasPath.push_back(start);
+    return std::make_tuple(totalCost, dijkstrasPath);
+}
 
 bool operator==(std::vector<Node*> lhs, std::vector<Node*>rhs){
     if(lhs.size() != rhs.size()){
         return false;
     }
     return std::equal(lhs.begin(), lhs.end(), rhs.begin());
+}
+
+std::ostream &operator<<(std::ostream &os, const Graph& graph) {
+    for(Node* node : graph.getNodes()){
+        os << "Node " << node->getLabel() << ":" << "\n";
+        for (const Edge* edge : node->edges) {
+            os << "Edge (" << node->getLabel() << " -> " << edge->getNodeTo()->getLabel() << "): "
+            << edge->cost << "\n";
+        }
+        os << "\n";
+    }
+    return os;
 }
 

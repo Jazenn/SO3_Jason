@@ -19,7 +19,7 @@ std::vector<Node*> Node::findNeighboursOfNode() const{
 }
 
 std::ostream &operator<<(std::ostream& os, Node& node) {
-    os << "Node " << node.label << "\n";
+    os << "Node " << node.label;
     return os;
 }
 

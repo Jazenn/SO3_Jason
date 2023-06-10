@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <tuple>
+#include <algorithm>
 
 #include "src\include\graph.hpp"
 #include "src\include\node.hpp"
@@ -51,52 +53,77 @@ int main(){
 
     Graph graph1 = Graph(nodes, edges);
 
-    std::cout << "test" << '\n';
-    std::cout << size(nodeA.edges) << '\n';
+    // std::cout << "test" << '\n';
+    // std::cout << size(nodeA.edges) << '\n';
     
-    for(Edge* edge : nodeA.edges){
-        std::cout << *edge << '\n';
-    }
-
-    std::cout << "Cost to go from node A to node B: " << graph1.getEdgeBetweenNodes(&nodeA, &nodeB)->cost << '\n';
-
-    std::vector<Node*> nodesVisiting = {&nodeA, &nodeC, &nodeF};
-    std::cout << graph1.getCostOfPath(nodesVisiting) << '\n';
-
-    // for(Node* node : graph1.findShortestPathWithDijkstra(&nodeA, &nodeF)){
-    //     std::cout << node->minimalDistance << node->previousNode << '\n';
+    // for(Edge* edge : nodeA.edges){
+    //     std::cout << *edge << '\n';
     // }
 
-    std::cout << "-------------------------------------" << "\n";
-    std::cout << autorit1 << "\n";
-    std::cout << graph1.getEdgeBetweenNodes(&nodeA, &nodeB) << "\n";
-    std::cout << *graph1.getEdgeBetweenNodes(&nodeA, &nodeB) << "\n";
-    std::cout << graph1.getEdgeBetweenNodes(graph1.getNodes()[0], graph1.getNodes()[1]);
-    std::cout << *graph1.getEdgeBetweenNodes(graph1.getNodes()[0], graph1.getNodes()[1]);
+    // std::cout << "Cost to go from node A to node B: " << graph1.getEdgeBetweenNodes(&nodeA, &nodeB)->cost << '\n';
 
-    std::cout << "-------------------------------------" << "\n";
-    std::vector<Node*> neighbouringNodes = nodeA.findNeighboursOfNode();
+    // std::vector<Node*> nodesVisiting = {&nodeA, &nodeC, &nodeF};
+    // std::cout << graph1.getCostOfPath(nodesVisiting) << '\n';
 
-    for(Node* node : neighbouringNodes){
-        std::cout << *node << "\n";
-    }
+    // // for(Node* node : graph1.findShortestPathWithDijkstra(&nodeA, &nodeF)){
+    // //     std::cout << node->minimalDistance << node->previousNode << '\n';
+    // // }
 
-    std::cout << "-------------------------------------" << "\n";
-    std::cout << "DIJKSTRA'S ALGORITHM TESTING" << "\n";
+    // std::cout << "-------------------------------------" << "\n";
+    // std::cout << autorit1 << "\n";
+    // std::cout << graph1.getEdgeBetweenNodes(&nodeA, &nodeB) << "\n";
+    // std::cout << *graph1.getEdgeBetweenNodes(&nodeA, &nodeB) << "\n";
+    // std::cout << graph1.getEdgeBetweenNodes(graph1.getNodes()[0], graph1.getNodes()[1]);
+    // std::cout << *graph1.getEdgeBetweenNodes(graph1.getNodes()[0], graph1.getNodes()[1]);
 
-    graph1.findShortestPathWithDijkstra(graph1.getNodes()[0], graph1.getNodes()[3]);
+    // std::cout << "-------------------------------------" << "\n";
+    // std::vector<Node*> neighbouringNodes = nodeA.findNeighboursOfNode();
 
-    for (Node* node : nodes) {
-    std::cout << "Minimal distance to " << node->getLabel() << ": " << node->minimalDistance << "\n";
-    if (node->previousNode) {
-        std::cout << "Previous node: " << node->previousNode->getLabel() << "\n";
-    } else {
-        std::cout << "Previous node: None\n";
-    }
-    std::cout << "\n";
-}
+    // for(Node* node : neighbouringNodes){
+    //     std::cout << *node << "\n";
+    // }
+
+    // std::cout << "-------------------------------------" << "\n";
+    // std::cout << "DIJKSTRA'S ALGORITHM TESTING" << "\n";
+
+    // graph1.findShortestPathWithDijkstra(graph1.getNodes()[0], graph1.getNodes()[3]);
+
+    // for (Node* node : nodes) {
+    // std::cout << "Minimal distance to " << node->getLabel() << ": " << node->minimalDistance << "\n";
+    // if (node->previousNode) {
+    //     std::cout << "Previous node: " << node->previousNode->getLabel() << "\n";
+    // } else {
+    //     std::cout << "Previous node: None\n";
+    // }
+    // std::cout << "\n";
+// }
     std::cout << "Welkom bij deze demo van het Dijkstra algoritme!" << "\n";
     std::cout << "Dit is een voorbeeld graaf die we hebben aangemaakt:" << "\n";
-    
+    std::cout << graph1 << "\n";
+
+    std::cout << "Nu gaan we het kortste pad vinden tussen 2 nodes, laten we makkelijk beginnen met Node A en B." << "\n";
+    graph1.findShortestPathWithDijkstra(graph1.getNodes()[0], graph1.getNodes()[1]);
+    std::tuple<float, std::vector<Node*>> results1 = graph1.getResultsOfDijkstra(graph1.getNodes()[0], graph1.getNodes()[1]);
+    std::cout << "Het kortste pad tussen deze nodes is: " << std::get<0>(results1) << ", met het volgende pad:" << "\n";
+    std::reverse(std::get<1>(results1).begin(), std::get<1>(results1).end());
+    for(Node* node : std::get<1>(results1)){
+        std::cout << *node << " -> ";
+    }
+    std::cout << "Done!";
+    std::cout << "\n";
+
+    std::cout << "Laten we nu een iets moeilijker voorbeeld pakken, namelijk Node A en Node H." << "\n";
+    graph1.findShortestPathWithDijkstra(graph1.getNodes()[0], graph1.getNodes()[7]);
+    std::tuple<float, std::vector<Node*>> results2 = graph1.getResultsOfDijkstra(graph1.getNodes()[0], graph1.getNodes()[7]);
+    std::cout << "Het kortste pad tussen deze nodes is: " << std::get<0>(results2) << ", met het volgende pad:" << "\n";
+    std::reverse(std::get<1>(results2).begin(), std::get<1>(results2).end());
+    for(Node* node : std::get<1>(results2)){
+        std::cout << *node << " -> ";
+    }
+    std::cout << "Done!";
+    std::cout << "\n";
+
+    std::cout << "Zoals u kunt zien, werkt dit algoritme naar behoren. Bedankt voor het kijken naar deze demo!";
+
     return 0;
 }
