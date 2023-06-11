@@ -10,10 +10,12 @@ std::string Node::getLabel() const{
     return this -> label;
 }
 
-std::vector<Node*> Node::findNeighboursOfNode() const{
+std::vector<Node*> Node::findNeighboursOfNode(std::string typePath) const{
     std::vector<Node*> neighbouringNodes;
     for(auto edge : Node::edges){
-        neighbouringNodes.push_back(edge->getNodeTo());
+        if(typePath == "None" || edge->getType() == typePath){
+            neighbouringNodes.push_back(edge->getNodeTo());
+        }
     }
     return neighbouringNodes;
 }

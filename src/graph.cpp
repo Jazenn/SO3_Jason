@@ -5,7 +5,8 @@
 #include <iostream>
 #include <ostream>
 
-Graph::Graph(std::vector<Node*> nodes, std::vector<Edge*> edges) : nodes(nodes),edges(edges){};
+Graph::Graph(std::vector<Node*> nodes, std::vector<Edge*> edges, std::string pathType) : nodes(nodes),edges(edges), pathType(pathType){};
+Graph::Graph(std::vector<Node*> nodes, std::vector<Edge*> edges) : nodes(nodes),edges(edges), pathType("None"){};
 
 std::vector<Node*> Graph::getNodes() const{
     return this->nodes;
@@ -13,6 +14,10 @@ std::vector<Node*> Graph::getNodes() const{
 
 std::vector<Edge*> Graph::getEdges() const{
     return this->edges;
+}
+
+std::string Graph::getTypePath() const{
+    return this->pathType;
 }
 
 Edge* Graph::getEdgeBetweenNodes(Node* from, Node* to) const{
@@ -31,14 +36,13 @@ float Graph::getCostOfPath(std::vector<Node*> nodesToVisit) const{
         if(edgeBetweenNodes == nullptr){
             return -1;
         }
-        totalCosts += edgeBetweenNodes->cost ;
+        totalCosts += edgeBetweenNodes->cost;
     }
-
     //Calculate total costs 
     return totalCosts;
 }
 
-void Graph::findShortestPathWithDijkstra(Node* start, Node* end) {
+void Graph::findShortestPathWithDijkstra(Node* start, Node* end, std::string pathType) {
     std::priority_queue<Node*, std::vector<Node*>, Node::NodeComparator> pq_nodes;
     std::vector<float> distances;
     std::vector<Node*> previous_nodes;
@@ -59,7 +63,7 @@ void Graph::findShortestPathWithDijkstra(Node* start, Node* end) {
         Node* n = pq_nodes.top();
         pq_nodes.pop();
 
-        for(Node* neighbour : n->findNeighboursOfNode()){
+        for(Node* neighbour : n->findNeighboursOfNode(pathType)){
             float alt = n->minimalDistance + getCostOfPath({n, neighbour});
             if(alt < neighbour->minimalDistance){
                 neighbour->minimalDistance = alt;
@@ -72,15 +76,13 @@ void Graph::findShortestPathWithDijkstra(Node* start, Node* end) {
 
 std::tuple<float, std::vector<Node*>> Graph::getResultsOfDijkstra(Node* start, Node* end){
     std::vector<Node*> dijkstrasPath;
-    float totalCost;
     Node* currentNode = end;
     while(currentNode != start){
-        totalCost += currentNode->minimalDistance;
         dijkstrasPath.push_back(currentNode);
         currentNode = currentNode->previousNode;
     }
     dijkstrasPath.push_back(start);
-    return std::make_tuple(totalCost, dijkstrasPath);
+    return std::make_tuple(end->minimalDistance, dijkstrasPath);
 }
 
 bool operator==(std::vector<Node*> lhs, std::vector<Node*>rhs){

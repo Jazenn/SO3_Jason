@@ -18,7 +18,7 @@ class Node
         Node(std::string label);
 
         std::string getLabel() const;
-        std::vector<Node*> findNeighboursOfNode() const;
+        std::vector<Node*> findNeighboursOfNode(std::string typePath) const;
         
         friend std::ostream &operator<<(std::ostream &os, Node& node);
         bool operator==(Node* rhs) const;
