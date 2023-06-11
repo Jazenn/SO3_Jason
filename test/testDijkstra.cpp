@@ -7,7 +7,7 @@
 #include "..\src\include\treinrit.hpp"
 #include "..\src\include\vlucht.hpp"
 
-Graph createMockGraph(){
+Graph createMockGraph1(){
     Node* nodeA = new Node("A");
     Node* nodeB = new Node("B");
     Node* nodeC = new Node("C");
@@ -27,6 +27,30 @@ Graph createMockGraph(){
     std::vector<Edge*> edges = {autorit1, autorit2, treinrit1, vlucht1};
 
     Graph graph = Graph(nodes, edges);
+
+    return graph;
+}
+
+Graph createMockGraph2(){
+    Node* nodeA = new Node("A");
+    Node* nodeB = new Node("B");
+    Node* nodeC = new Node("C");
+    Node* nodeD = new Node("D");
+    Node* nodeE = new Node("E");
+
+    Autorit* autorit1 = new Autorit(nodeA, nodeB, 5);
+    Autorit* autorit2 = new Autorit(nodeA, nodeC, 4);
+    Treinrit* treinrit1 = new Treinrit(nodeB, nodeD, 2);
+    Vlucht* vlucht1 = new Vlucht(nodeC, nodeD, 1);
+
+    nodeA->edges.insert(nodeA->edges.end(), {autorit1, autorit2});
+    nodeB->edges.insert(nodeB->edges.end(), {treinrit1});
+    nodeC->edges.insert(nodeC->edges.end(), {vlucht1});
+
+    std::vector<Node*> nodes = {nodeA, nodeB, nodeC, nodeD, nodeE};
+    std::vector<Edge*> edges = {autorit1, autorit2, treinrit1, vlucht1};
+
+    Graph graph = Graph(nodes, edges, "Autorit");
 
     return graph;
 }
@@ -90,7 +114,7 @@ TEST_CASE("Nodes werken met verschillende subclasses van Edge", "Node.cpp + Edge
     REQUIRE(nodeC.edges.front() == &vlucht1);
 }
 
-TEST_CASE("A graph is generated correctly", "graph.cpp, node.cpp, edge.cpp"){
+TEST_CASE("A graph is generated correctly without typePath", "graph.cpp, node.cpp, edge.cpp"){
     Node nodeA = Node("A");
     Node nodeB = Node("B");
     Node nodeC = Node("C");
@@ -114,6 +138,34 @@ TEST_CASE("A graph is generated correctly", "graph.cpp, node.cpp, edge.cpp"){
 
     REQUIRE(graph1.getNodes() == testNodes);
     REQUIRE(graph1.getEdges() == testEdges);
+    REQUIRE(graph1.getTypePath() == "None");
+}
+
+TEST_CASE("A graph is generated correctly with typePath", "graph.cpp, node.cpp, edge.cpp"){
+    Node nodeA = Node("A");
+    Node nodeB = Node("B");
+    Node nodeC = Node("C");
+    Node nodeD = Node("D");
+
+    Autorit autorit1 = Autorit(&nodeA, &nodeB, 5);
+    Autorit autorit2 = Autorit(&nodeA, &nodeC, 4);
+    Treinrit treinrit1 = Treinrit(&nodeB, &nodeD, 2);
+    Vlucht vlucht1 = Vlucht(&nodeC, &nodeD, 1);\
+
+    nodeA.edges.insert(nodeA.edges.end(), {&autorit1, &autorit2});
+    nodeB.edges.insert(nodeB.edges.end(), {&treinrit1});
+    nodeC.edges.insert(nodeC.edges.end(), {&vlucht1});
+
+    std::vector<Node*> nodes = {&nodeA, &nodeB, &nodeC, &nodeD};
+    std::vector<Edge*> edges = {&autorit1, &autorit2, &treinrit1, &vlucht1};
+    Graph graph1 = Graph(nodes, edges, "Autorit");
+
+    std::vector<Node*> testNodes = {&nodeA, &nodeB, &nodeC, &nodeD};
+    std::vector<Edge*> testEdges = {&autorit1, &autorit2, &treinrit1, &vlucht1};
+
+    REQUIRE(graph1.getNodes() == testNodes);
+    REQUIRE(graph1.getEdges() == testEdges);
+    REQUIRE(graph1.getTypePath() == "Autorit");
 }
 
 TEST_CASE("Test whether 2 identical nodes are equal", "node.cpp"){
@@ -132,49 +184,64 @@ TEST_CASE("Test whether 2 identical edges are equal", "edge.cpp"){
 }
 
 TEST_CASE("The function getEdgeBetweenNodes works correctly", "graph.cpp, node.cpp, edge.cpp"){
-    Graph graph1 = createMockGraph();
+    Graph graph1 = createMockGraph1();
 
     REQUIRE(graph1.getEdgeBetweenNodes(graph1.getNodes()[0], graph1.getNodes()[1]) == graph1.getEdges()[0]);
 }
 
 TEST_CASE("The function getEdgeBetweenNodes returns a nullptr when there is no edge between the given nodes", "graph.cpp, node.cpp, edge.cpp"){
-    Graph graph1 = createMockGraph();
+    Graph graph1 = createMockGraph1();
 
     REQUIRE(graph1.getEdgeBetweenNodes(graph1.getNodes()[0], graph1.getNodes()[3]) == nullptr);
 }
 
 TEST_CASE("The function getCostOfPath works correctly", "graph.cpp, node.cpp, edge.cpp"){
-    Graph graph1 = createMockGraph();
+    Graph graph1 = createMockGraph1();
 
     REQUIRE(graph1.getCostOfPath({graph1.getNodes()[0], graph1.getNodes()[1], graph1.getNodes()[3]}) == 11.5);
 }
 
 TEST_CASE("The function getCostOfPath returns -1 if path between nodes does not exist.", "graph.cpp, node.cpp, edge.cpp"){
-    Graph graph1 = createMockGraph();
+    Graph graph1 = createMockGraph1();
 
     REQUIRE(graph1.getCostOfPath({graph1.getNodes()[0], graph1.getNodes()[4]}) == -1);
 }
 
-TEST_CASE("The function findNeighboursOfNode works correctly","node.cpp"){
-    Graph graph1 = createMockGraph();
+TEST_CASE("The function findNeighboursOfNode works correctly when provided with no typePath","node.cpp"){
+    Graph graph1 = createMockGraph1();
     std::vector<Node*> testingNodes = {graph1.getNodes()[1], graph1.getNodes()[2]};
 
-    REQUIRE(graph1.getNodes()[0]->findNeighboursOfNode() == testingNodes);
+    REQUIRE(graph1.getNodes()[0]->findNeighboursOfNode(graph1.getTypePath()) == testingNodes);
+}
+
+TEST_CASE("The function findNeighboursOfNode works correctly when provided with typePath","node.cpp"){
+    Graph graph2 = createMockGraph2();
+    std::vector<Node*> testingNodes = {};
+
+    REQUIRE(graph2.getNodes()[1]->findNeighboursOfNode(graph2.getTypePath()) == testingNodes);
 }
 
 TEST_CASE("The function findNeighboursOfNode returns an empty vector is node has no neighbours","node.cpp"){
-    Graph graph1 = createMockGraph();
+    Graph graph1 = createMockGraph1();
     std::vector<Node*> testingNodes = {};
 
-    REQUIRE(graph1.getNodes()[3]->findNeighboursOfNode() == testingNodes);
-    REQUIRE(graph1.getNodes()[4]->findNeighboursOfNode() == testingNodes);
+    REQUIRE(graph1.getNodes()[3]->findNeighboursOfNode(graph1.getTypePath()) == testingNodes);
+    REQUIRE(graph1.getNodes()[4]->findNeighboursOfNode(graph1.getTypePath()) == testingNodes);
 }
 
-TEST_CASE("Function findShortestPathWithDijkstra works correctly", "graph.cpp, node.cpp, edge.cpp"){
-    Graph graph1 = createMockGraph();
-    graph1.findShortestPathWithDijkstra(graph1.getNodes()[0], graph1.getNodes()[3]);
+TEST_CASE("Function findShortestPathWithDijkstra works correctly when provided with no typePath", "graph.cpp, node.cpp, edge.cpp"){
+    Graph graph1 = createMockGraph1();
+    graph1.findShortestPathWithDijkstra(graph1.getNodes()[0], graph1.getNodes()[3], graph1.getTypePath());
     
     REQUIRE(graph1.getNodes()[3]->minimalDistance == 6.75);
     REQUIRE(graph1.getNodes()[3]->previousNode == graph1.getNodes()[2]);
     REQUIRE(graph1.getNodes()[2]->previousNode == graph1.getNodes()[0]);
+}
+
+TEST_CASE("Function findShortestPathWithDijkstra works correctly when provided with typePath", "graph.cpp, node.cpp, edge.cpp"){
+    Graph graph2 = createMockGraph2();
+    graph2.findShortestPathWithDijkstra(graph2.getNodes()[0], graph2.getNodes()[3], graph2.getTypePath());
+    
+    REQUIRE(graph2.getNodes()[3]->minimalDistance == std::numeric_limits<float>::max());
+    REQUIRE(graph2.getNodes()[3]->previousNode == nullptr);
 }
