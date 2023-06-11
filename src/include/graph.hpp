@@ -9,8 +9,8 @@
 class Graph{
         private:
             std::vector<Node*> const nodes;
-            std::string pathType;
             std::vector<Edge*> const edges;
+            std::string pathType;
 
         public:
             Graph(std::vector<Node*> nodes, std::vector<Edge*> edges, std::string pathType);
